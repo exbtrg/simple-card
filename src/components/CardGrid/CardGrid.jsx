@@ -5,6 +5,7 @@ import { Grid, Container, Box, Button, Typography } from '@material-ui/core'
 import AddCard from '../AddCard'
 import { dataGroup } from '../../services/dummyData'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import GroupForm from '../GroupForm'
 
 const CardGrid = ({ cardAddHandler, cardList, component, match, history }) => {
   const CardComponent = component
@@ -41,7 +42,9 @@ const CardGrid = ({ cardAddHandler, cardList, component, match, history }) => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <AddCard onClick={cardAddHandler} />
+            <AddCard onClick={cardAddHandler}>
+              {isWordsPage ? <GroupForm /> : <GroupForm />}
+            </AddCard>
           </Grid>
 
           {cardList.map((data) => (
