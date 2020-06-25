@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import {
   Box,
   Container,
@@ -12,7 +13,8 @@ function handleClick(event) {
   console.info('You clicked a breadcrumb.')
 }
 
-export default function BreadCrumbs() {
+const BreadCrumbs = (props) => {
+  console.log(props)
   return (
     <Container>
       <Box pt={{ xs: 10, sm: 12 }}>
@@ -33,3 +35,5 @@ export default function BreadCrumbs() {
     </Container>
   )
 }
+
+export default withRouter(BreadCrumbs)

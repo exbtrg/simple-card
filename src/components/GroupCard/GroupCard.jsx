@@ -1,31 +1,46 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom'
 import { Card, CardContent, Typography, Link } from '@material-ui/core'
 import useStyles from './styles'
 
-export default function SimpleCard() {
+const GroupCard = ({
+  id,
+  title,
+  description,
+  complitedCount,
+  progressCount,
+  history,
+}) => {
   const classes = useStyles()
 
+  const pageRoutingHandle = (e, id) => {
+    e.preventDefault()
+    history.push(`${id}`)
+  }
+
   return (
-    <Link href="#" underline="none">
+    <Link href="#" underline="none" onClick={(e) => pageRoutingHandle(e, id)}>
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Title Card
+            {title}
           </Typography>
 
           <Typography className={classes.pos} color="textSecondary">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            {description}
           </Typography>
 
           <Typography variant="body2" component="p">
-            Done 20
+            {complitedCount}
           </Typography>
 
           <Typography variant="body2" component="p">
-            In progress 30
+            {progressCount}
           </Typography>
         </CardContent>
       </Card>
     </Link>
   )
 }
+
+export default withRouter(GroupCard)

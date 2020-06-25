@@ -2,7 +2,6 @@ import React from 'react'
 import { func, array, node, bool } from 'prop-types'
 import { Grid, Container, Box } from '@material-ui/core'
 import AddCard from '../AddCard'
-import useStyles from './styles'
 
 export default function CardGrid({
   cardAddHandler,
@@ -10,7 +9,6 @@ export default function CardGrid({
   component,
   shouldBeAddBtn,
 }) {
-  const classes = useStyles()
   const CardComponent = component
 
   return (
@@ -23,9 +21,9 @@ export default function CardGrid({
             </Grid>
           )}
 
-          {cardList.map((card, index) => (
-            <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-              <CardComponent className={classes.card} />
+          {cardList.map((data) => (
+            <Grid key={data.id} item xs={12} sm={6} md={4} lg={3}>
+              <CardComponent {...data} />
             </Grid>
           ))}
         </Grid>
