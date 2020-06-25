@@ -4,8 +4,8 @@ import { Card, CardContent, Typography, Link } from '@material-ui/core'
 import useStyles from './styles'
 
 const GroupCard = ({
-  id,
   title,
+  url,
   description,
   complitedCount,
   progressCount,
@@ -13,13 +13,13 @@ const GroupCard = ({
 }) => {
   const classes = useStyles()
 
-  const pageRoutingHandle = (e, id) => {
+  const pageRoutingHandle = (e, url) => {
     e.preventDefault()
-    history.push(`${id}`)
+    history.push(url)
   }
 
   return (
-    <Link href="#" underline="none" onClick={(e) => pageRoutingHandle(e, id)}>
+    <Link href="#" underline="none" onClick={(e) => pageRoutingHandle(e, url)}>
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">

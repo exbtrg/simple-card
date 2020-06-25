@@ -2,6 +2,7 @@ export const dataGroup = [
   {
     id: 1,
     title: 'Title 1',
+    url: 'title-1',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -9,6 +10,7 @@ export const dataGroup = [
   {
     id: 2,
     title: 'Title 2',
+    url: 'title-2',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -16,6 +18,7 @@ export const dataGroup = [
   {
     id: 3,
     title: 'Title 3',
+    url: 'title-3',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -23,6 +26,7 @@ export const dataGroup = [
   {
     id: 4,
     title: 'Title 4',
+    url: 'title-4',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -30,6 +34,7 @@ export const dataGroup = [
   {
     id: 5,
     title: 'Title 5',
+    url: 'title-5',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -37,6 +42,7 @@ export const dataGroup = [
   {
     id: 6,
     title: 'Title 6',
+    url: 'title-6',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -44,6 +50,7 @@ export const dataGroup = [
   {
     id: 7,
     title: 'Title 7',
+    url: 'title-7',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -51,6 +58,7 @@ export const dataGroup = [
   {
     id: 8,
     title: 'Title 8',
+    url: 'title-8',
     description: 'description',
     complitedCount: 20,
     progressCount: 30,
@@ -60,7 +68,7 @@ export const dataGroup = [
 export const dataWord = [
   {
     id: 1,
-    groupId: 1,
+    groupUrl: 'title-1',
     word: 'TestWord',
     translate: 'Перевод слова',
     imageUrl:
@@ -86,7 +94,7 @@ export const dataWord = [
   },
   {
     id: 2,
-    groupId: 1,
+    groupUrl: 'title-1',
     word: 'TestWord',
     translate: 'Перевод слова',
     imageUrl:
@@ -112,7 +120,7 @@ export const dataWord = [
   },
   {
     id: 3,
-    groupId: 1,
+    groupUrl: 'title-2',
     word: 'TestWord',
     translate: 'Перевод слова',
     imageUrl:
@@ -138,7 +146,7 @@ export const dataWord = [
   },
   {
     id: 4,
-    groupId: 2,
+    groupUrl: 'title-2',
     word: 'TestWord 2',
     translate: 'Перевод слова',
     imageUrl:
@@ -164,7 +172,7 @@ export const dataWord = [
   },
   {
     id: 5,
-    groupId: 2,
+    groupUrl: 'title-1',
     word: 'TestWord 2',
     translate: 'Перевод слова',
     imageUrl:
@@ -190,7 +198,7 @@ export const dataWord = [
   },
   {
     id: 6,
-    groupId: 1,
+    groupUrl: 'title-2',
     word: 'TestWord 2',
     translate: 'Перевод слова',
     imageUrl:
@@ -216,7 +224,7 @@ export const dataWord = [
   },
   {
     id: 7,
-    groupId: 2,
+    groupUrl: 'title-1',
     word: 'TestWord 2',
     translate: 'Перевод слова',
     imageUrl:
@@ -242,7 +250,7 @@ export const dataWord = [
   },
   {
     id: 8,
-    groupId: 2,
+    groupUrl: 'title-1',
     word: 'TestWord 2',
     translate: 'Перевод слова',
     imageUrl:

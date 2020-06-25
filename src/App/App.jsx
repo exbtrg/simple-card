@@ -1,12 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
 import { orange } from '@material-ui/core/colors'
 import Header from '../components/Header'
-import BreadCrumb from '../components/BreadCrumbs'
 
 import AddedCards from '../routes/AddedCards'
-import BaseCard from '../routes/BaseCards'
 
 const theme = createMuiTheme({
   status: {
@@ -24,11 +23,9 @@ const App = () => (
 
       <Header />
 
-      <BreadCrumb />
-
-      <AddedCards />
-
-      <BaseCard />
+      <Box pt={{ xs: 4, sm: 6 }}>
+        <AddedCards />
+      </Box>
     </ThemeProvider>
   </Router>
 )
