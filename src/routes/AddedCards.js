@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import CardGrid from '../components/CardGrid'
 import GroupCard from '../components/GroupCard'
 import WordCard from '../components/WordCard'
@@ -11,9 +11,7 @@ const AddedCards = () => {
     <>
       <Route
         path="/added-cards"
-        render={() => (
-          <CardGrid cardList={dataGroup} component={GroupCard} shouldBeAddBtn />
-        )}
+        render={() => <CardGrid cardList={dataGroup} component={GroupCard} />}
         exact
       />
 
@@ -26,11 +24,12 @@ const AddedCards = () => {
             <CardGrid
               cardList={filterWordByGroup(id, dataWord)}
               component={WordCard}
-              shouldBeAddBtn
             />
           )
         }}
       />
+
+      <Redirect to="/added-cards/" />
     </>
   )
 }
