@@ -34,8 +34,8 @@ HideOnScroll.propTypes = {
 
 const Header = (props) => {
   const routesUrl = {
-    added: '/added-cards',
-    base: '/base-cards',
+    added: '/added-cards/',
+    base: '/base-cards/',
   }
 
   const classes = useStyles()
@@ -60,7 +60,7 @@ const Header = (props) => {
                     variant="contained"
                     color="primary"
                     className={cn(classes.spacing, {
-                      [classes.active]: pathname === routesUrl.added,
+                      [classes.active]: pathname.search(routesUrl.added) >= 0,
                     })}
                   >
                     Added Cards
@@ -72,7 +72,7 @@ const Header = (props) => {
                     variant="contained"
                     color="primary"
                     className={cn({
-                      [classes.active]: pathname === routesUrl.base,
+                      [classes.active]: pathname.search(routesUrl.base) >= 0,
                     })}
                   >
                     Base Cards

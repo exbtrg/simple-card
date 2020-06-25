@@ -2,7 +2,16 @@ import React from 'react'
 import { Card, CardContent, Typography, Link } from '@material-ui/core'
 import useStyles from './styles'
 
-export default function SimpleCard() {
+export default function WordCard({
+  id,
+  groupId,
+  word,
+  translate,
+  status,
+  countCycle,
+  countRepeat,
+  dateToContinue,
+}) {
   const classes = useStyles()
 
   return (
@@ -10,19 +19,15 @@ export default function SimpleCard() {
       <Card className={classes.root}>
         <CardContent>
           <Typography variant="h5" component="h2">
-            Title Card
-          </Typography>
-
-          <Typography className={classes.pos} color="textSecondary">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            {word}
           </Typography>
 
           <Typography variant="body2" component="p">
-            Done 20
+            {countCycle}
           </Typography>
 
           <Typography variant="body2" component="p">
-            In progress 30
+            {countRepeat}
           </Typography>
         </CardContent>
       </Card>
