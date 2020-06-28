@@ -1,8 +1,10 @@
 import React from 'react'
+import { Provider as StoreProvider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import { orange } from '@material-ui/core/colors'
+import store from '../redux/store'
 import Header from '../components/Header'
 
 import AddedCards from '../routes/AddedCards'
@@ -17,17 +19,19 @@ const theme = createMuiTheme({
 })
 
 const App = () => (
-  <Router>
-    <ThemeProvider theme={theme}>
-      {console.log(theme)}
+  <StoreProvider store={store}>
+    <Router>
+      <ThemeProvider theme={theme}>
+        {console.log(theme)}
 
-      <Header />
+        <Header />
 
-      <Box pt={{ xs: 4, sm: 6 }}>
-        <AddedCards />
-      </Box>
-    </ThemeProvider>
-  </Router>
+        <Box pt={{ xs: 4, sm: 6 }}>
+          <AddedCards />
+        </Box>
+      </ThemeProvider>
+    </Router>
+  </StoreProvider>
 )
 
 export default App

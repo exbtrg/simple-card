@@ -7,7 +7,7 @@ import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 
-export default function AddCard({ children }) {
+export default function AddCard({ component }) {
   const classes = useStyles()
   const [open, setOpen] = React.useState(false)
 
@@ -19,6 +19,8 @@ export default function AddCard({ children }) {
     setOpen(false)
   }
 
+  const Component = component
+
   return (
     <div className={classes.root}>
       <ButtonBase onClick={handleOpen} className={classes.button}>
@@ -26,6 +28,7 @@ export default function AddCard({ children }) {
           <AddCircleIcon fontSize="large" />
         </Paper>
       </ButtonBase>
+
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -39,7 +42,9 @@ export default function AddCard({ children }) {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paperModal}>{children}</div>
+          <div className={classes.paperModal}>
+            <Component setOpen={setOpen} />
+          </div>
         </Fade>
       </Modal>
     </div>

@@ -1,13 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { func, array, node } from 'prop-types'
 import { Grid, Container, Box, Button, Typography } from '@material-ui/core'
 import AddCard from '../AddCard'
-import { dataGroup } from '../../services/dummyData'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import GroupForm from '../GroupForm'
 
-const CardGrid = ({ cardAddHandler, cardList, component, match, history }) => {
+const CardGrid = ({ cardList, groups, component, match, history }) => {
   const CardComponent = component
   const currentId = match.params.id
   const isWordsPage = currentId !== undefined
@@ -20,7 +20,7 @@ const CardGrid = ({ cardAddHandler, cardList, component, match, history }) => {
             {isWordsPage ? (
               <>
                 <Typography variant="h4" component="h2">
-                  {dataGroup.find(({ url }) => url === currentId).title}
+                  {groups.find(({ url }) => url === currentId).title}
                 </Typography>
 
                 <Button
@@ -42,9 +42,7 @@ const CardGrid = ({ cardAddHandler, cardList, component, match, history }) => {
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <AddCard onClick={cardAddHandler}>
-              {isWordsPage ? <GroupForm /> : <GroupForm />}
-            </AddCard>
+            <AddCard component={isWordsPage ? GroupForm : GroupForm} />
           </Grid>
 
           {cardList.map((data) => (
@@ -64,4 +62,6 @@ CardGrid.protoTypes = {
   component: node,
 }
 
-export default withRouter(CardGrid)
+const mapStateToProps = ({ groups }) => ({ groups })
+
+export default withRouter(connect(mapStateToProps)(CardGrid))
