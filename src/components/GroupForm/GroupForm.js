@@ -82,6 +82,7 @@ const AddressForm = ({ groups, addNewGroupHandler, setOpen }) => {
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
+                        helperText={meta.error}
                       />
                       {meta.validating && <CircularProgress />}
                     </>
@@ -99,6 +100,7 @@ const AddressForm = ({ groups, addNewGroupHandler, setOpen }) => {
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
+                        helperText={meta.error}
                       />
                     </>
                   )}
