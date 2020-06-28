@@ -55,7 +55,8 @@ const AddressForm = ({ groups, addNewGroupHandler, setOpen }) => {
       return 'Required'
     }
     await sleep(400)
-    if (~groups.indexOf(value && value.toLowerCase())) {
+    const groupTitles = groups.map(({ title }) => title)
+    if (~groupTitles.indexOf(value)) {
       return 'Title taken!'
     }
   })

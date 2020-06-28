@@ -10,4 +10,9 @@ const addNewWord = (newItem) => ({
   payload: newItem,
 })
 
-export { addNewGroup, addNewWord }
+const deleteItemFromGroup = (index) => ({
+  type: actionTypes.DELETE_ITEM_GROUP,
+  payload: index,
+})
+
+export { addNewGroup, addNewWord, deleteItemFromGroup }

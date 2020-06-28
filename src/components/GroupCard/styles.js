@@ -9,6 +9,10 @@ const useStyles = makeStyles(({ palette, shadows }) => {
         boxShadow: `${shadows[5]}`,
       },
     },
+    headBox: {
+      display: 'flex',
+      justifyContent: 'space-between',
+    },
     bullet: {
       display: 'inline-block',
       margin: '0 2px',
