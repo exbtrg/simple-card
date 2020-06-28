@@ -41,7 +41,7 @@ const createNewGroup = ({ title, description }) => ({
   progressCount: 0,
 })
 
-const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
+const WordForm = ({ groups, addNewGroupHandler, setOpen }) => {
   const onSubmit = async (values) => {
     await sleep(300)
     setOpen(false)
@@ -133,4 +133,4 @@ const mapDispatchToProps = {
   addNewGroupHandler: addNewGroup,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)
+export default connect(mapStateToProps, mapDispatchToProps)(WordForm)
