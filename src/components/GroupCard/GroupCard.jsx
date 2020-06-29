@@ -9,8 +9,10 @@ import {
   Link,
   ButtonBase,
   Box,
+  Button,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import Modal from '../Modal'
 import useStyles from './styles'
 
 const GroupCard = ({
@@ -37,6 +39,32 @@ const GroupCard = ({
     deleteItemFromGroup(id)
   }
 
+  const DeliteItem = ({ handleOpen }) => {
+    const modalOpenHandler = (e) => {
+      e.stopPropagation()
+      handleOpen()
+    }
+
+    return (
+      <ButtonBase onClick={(e) => modalOpenHandler(e)}>
+        <DeleteIcon />
+      </ButtonBase>
+    )
+  }
+
+  const DeleteDialog = () => (
+    <Box p={3}>
+      <Box mb={6}>
+        <Typography variant="h4" component="p">
+          Are you sure?
+        </Typography>
+      </Box>
+      <Button variant="contained" onClick={(e) => deleteItemHandler(e, id)}>
+        Delite
+      </Button>
+    </Box>
+  )
+
   return (
     <Link href="#" underline="none" onClick={(e) => pageRoutingHandler(e, url)}>
       <Card className={classes.root}>
@@ -46,9 +74,7 @@ const GroupCard = ({
               {title}
             </Typography>
 
-            <ButtonBase onClick={(e) => deleteItemHandler(e, id)}>
-              <DeleteIcon />
-            </ButtonBase>
+            <Modal openTrigerNode={DeliteItem} modalNode={DeleteDialog} />
           </Box>
 
           <Typography className={classes.pos} color="textSecondary">
