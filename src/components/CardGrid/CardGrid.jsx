@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { func, array, node } from 'prop-types'
 import { Grid, Container, Box, Button, Typography } from '@material-ui/core'
 import { setActiveGroup } from '../../redux/actions'
+import Modal from '../Modal'
 import AddCard from '../AddCard'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import GroupForm from '../GroupForm'
@@ -60,7 +61,10 @@ const CardGrid = ({
 
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <AddCard component={isWordsPage ? WordForm : GroupForm} />
+            <Modal
+              openTrigerNode={AddCard}
+              modalNode={isWordsPage ? WordForm : GroupForm}
+            />
           </Grid>
 
           {cardList.map((data) => (
