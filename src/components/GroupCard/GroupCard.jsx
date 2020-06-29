@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deleteItemFromGroup } from '../../redux/actions'
+import { deleteItemFromGroup, setActiveGroup } from '../../redux/actions'
 import {
   Card,
   CardContent,
@@ -22,12 +22,14 @@ const GroupCard = ({
   progressCount,
   history,
   deleteItemFromGroup,
+  setActiveGroup,
 }) => {
   const classes = useStyles()
 
-  const pageRoutingHandle = (e, url) => {
+  const pageRoutingHandler = (e, url) => {
     e.preventDefault()
     history.push(url)
+    setActiveGroup({ id, url, title })
   }
 
   const deleteItemHandler = (e, id) => {
@@ -36,7 +38,7 @@ const GroupCard = ({
   }
 
   return (
-    <Link href="#" underline="none" onClick={(e) => pageRoutingHandle(e, url)}>
+    <Link href="#" underline="none" onClick={(e) => pageRoutingHandler(e, url)}>
       <Card className={classes.root}>
         <CardContent>
           <Box className={classes.headBox}>
@@ -68,6 +70,7 @@ const GroupCard = ({
 
 const mapDispatchToProps = {
   deleteItemFromGroup,
+  setActiveGroup,
 }
 
 export default connect(null, mapDispatchToProps)(withRouter(GroupCard))
