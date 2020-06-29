@@ -6,6 +6,20 @@ const deleteItemFromArray = (arr, id) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)]
 }
 
+const activeGroup = (state, action) => {
+  if (state === undefined) {
+    return null
+  }
+
+  switch (action.type) {
+    case actionTypes.SET_ACTIVE_GROUP:
+      return action.payload
+
+    default:
+      return state
+  }
+}
+
 const groups = (state, action) => {
   if (state === undefined) {
     return []
@@ -38,6 +52,7 @@ const words = (state, action) => {
 }
 
 const rootReducer = combineReducers({
+  activeGroup,
   groups,
   words,
 })
