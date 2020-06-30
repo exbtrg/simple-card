@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   Typography,
-  Link,
+  Grid,
   ButtonBase,
   Box,
   Button,
@@ -28,29 +28,20 @@ const GroupCard = ({
 }) => {
   const classes = useStyles()
 
-  const pageRoutingHandler = (e, url) => {
-    e.preventDefault()
+  const pageRoutingHandler = (url) => {
     history.push(url)
     setActiveGroup({ id, url, title })
   }
 
-  const deleteItemHandler = (e, id) => {
-    e.stopPropagation()
+  const deleteItemHandler = (id) => {
     deleteItemFromGroup(id)
   }
 
-  const DeliteItem = ({ handleOpen }) => {
-    const modalOpenHandler = (e) => {
-      e.stopPropagation()
-      handleOpen()
-    }
-
-    return (
-      <ButtonBase onClick={(e) => modalOpenHandler(e)}>
-        <DeleteIcon />
-      </ButtonBase>
-    )
-  }
+  const DeliteItem = ({ handleOpen }) => (
+    <ButtonBase onClick={handleOpen}>
+      <DeleteIcon className={classes.deleteIcon} />
+    </ButtonBase>
+  )
 
   const DeleteDialog = () => (
     <Box p={3}>
@@ -59,38 +50,49 @@ const GroupCard = ({
           Are you sure?
         </Typography>
       </Box>
-      <Button variant="contained" onClick={(e) => deleteItemHandler(e, id)}>
+      <Button variant="contained" onClick={() => deleteItemHandler(id)}>
         Delite
       </Button>
     </Box>
   )
 
   return (
-    <Link href="#" underline="none" onClick={(e) => pageRoutingHandler(e, url)}>
-      <Card className={classes.root}>
-        <CardContent>
-          <Box className={classes.headBox}>
-            <Typography variant="h5" component="h2">
-              {title}
+    <Card className={classes.root}>
+      <CardContent>
+        <Grid container justify="space-between" className={classes.headBox}>
+          <Typography variant="h5" component="h2">
+            {title}
+          </Typography>
+
+          <Modal openTrigerNode={DeliteItem} modalNode={DeleteDialog} />
+        </Grid>
+
+        <Typography className={classes.pos} color="textSecondary">
+          {description}
+        </Typography>
+
+        <Grid container justify="space-between">
+          <Box>
+            <Typography variant="body2" component="p">
+              {complitedCount}
             </Typography>
 
-            <Modal openTrigerNode={DeliteItem} modalNode={DeleteDialog} />
+            <Typography variant="body2" component="p">
+              {progressCount}
+            </Typography>
           </Box>
 
-          <Typography className={classes.pos} color="textSecondary">
-            {description}
-          </Typography>
-
-          <Typography variant="body2" component="p">
-            {complitedCount}
-          </Typography>
-
-          <Typography variant="body2" component="p">
-            {progressCount}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Link>
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            onClick={() => pageRoutingHandler(url)}
+          >
+            Go to group
+          </Button>
+        </Grid>
+      </CardContent>
+    </Card>
   )
 }
 
