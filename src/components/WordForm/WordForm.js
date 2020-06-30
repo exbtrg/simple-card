@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
 import {
   Container,
   Grid,
@@ -11,37 +10,13 @@ import {
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
 import { addNewWord } from '../../redux/actions'
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-const required = (value) => (value ? undefined : 'Required')
-// const composeValidators = (...validators) => (value) =>
-//   validators.reduce((error, validator) => error || validator(value), undefined)
-
-const createNewWord = (
-  groupId,
-  { word, translate, imageUrl, inContextOriginal, inContextTranslate }
-) => ({
-  id: uuidv4(),
-  groupId: groupId,
-  word: word,
-  translate: translate,
-  imageUrl: imageUrl,
-  inContextOriginal: inContextOriginal,
-  inContextTranslate: inContextTranslate,
-  status: 'progress',
-  countCycle: 0,
-  countRepeat: 0,
-  dateToContinue: null,
-})
+import createNewWord from '../../dataModel/createNewWord'
+import required from '../../utils/validators/required'
 
 const WordForm = ({ activeGroup, addNewWordHandler, setOpen }) => {
-  const onSubmit = async (values) => {
-    await sleep(300)
+  const onSubmit = (values) => {
     setOpen(false)
     const groupId = activeGroup.id
-    console.log(createNewWord(groupId, values))
-
     addNewWordHandler(createNewWord(groupId, values))
   }
 

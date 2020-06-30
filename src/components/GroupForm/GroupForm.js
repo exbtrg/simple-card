@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
 import {
   Container,
   Grid,
@@ -11,22 +10,13 @@ import {
   CircularProgress,
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
+import createNewGroup from '../../dataModel/createNewGroup'
 import composeValidators from '../../utils/validators/composeValidators'
 import required from '../../utils/validators/required'
 import titleAvailable from '../../utils/validators/titleAvailable'
 import titleValid from '../../utils/validators/titleValid'
-import titleToUrl from '../../utils/titleToUrl'
 import simpleMemoize from '../../utils/simpleMemoize'
 import { addNewGroup } from '../../redux/actions'
-
-const createNewGroup = ({ title, description }) => ({
-  id: uuidv4(),
-  title: title,
-  url: titleToUrl(title),
-  description: description,
-  complitedCount: 0,
-  progressCount: 0,
-})
 
 const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
   const onSubmit = (values) => {
