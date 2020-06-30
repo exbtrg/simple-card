@@ -11,26 +11,13 @@ import {
   CircularProgress,
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
+import composeValidators from '../../utils/validators/composeValidators'
+import required from '../../utils/validators/required'
+import titleAvailable from '../../utils/validators/titleAvailable'
+import titleValid from '../../utils/validators/titleValid'
 import titleToUrl from '../../utils/titleToUrl'
+import simpleMemoize from '../../utils/simpleMemoize'
 import { addNewGroup } from '../../redux/actions'
-
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-const required = (value) => (value ? undefined : 'Required')
-const composeValidators = (...validators) => (value) =>
-  validators.reduce((error, validator) => error || validator(value), undefined)
-
-const simpleMemoize = (fn) => {
-  let lastArg
-  let lastResult
-  return (arg) => {
-    if (arg !== lastArg) {
-      lastArg = arg
-      lastResult = fn(arg)
-    }
-    return lastResult
-  }
-}
 
 const createNewGroup = ({ title, description }) => ({
   id: uuidv4(),
@@ -42,31 +29,9 @@ const createNewGroup = ({ title, description }) => ({
 })
 
 const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
-  const onSubmit = async (values) => {
-    await sleep(300)
+  const onSubmit = (values) => {
     setOpen(false)
-    console.log(createNewGroup(values))
-
     addNewGroupHandler(createNewGroup(values))
-  }
-
-  const titleAvailable = simpleMemoize(async (value) => {
-    if (!value) {
-      return 'Required'
-    }
-    await sleep(400)
-    const groupTitles = groups.map(({ title }) => title)
-    if (~groupTitles.indexOf(value)) {
-      return 'Title taken!'
-    }
-  })
-
-  const titleValid = (value) => {
-    const regexp = /^[A-Za-z0-9.\-~\s]+$/
-
-    if (!regexp.test(value)) {
-      return 'Only numbers letters and ".-~"'
-    }
   }
 
   return (
@@ -83,7 +48,11 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="title"
-                  validate={composeValidators(titleValid, titleAvailable)}
+                  validate={composeValidators(
+                    required,
+                    titleValid,
+                    simpleMemoize(titleAvailable(groups))
+                  )}
                 >
                   {({ input, meta }) => (
                     <>
@@ -93,7 +62,7 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
-                        helperText={meta.error}
+                        helperText={meta.touched && meta.error}
                       />
                       {meta.validating && <CircularProgress />}
                     </>
@@ -111,7 +80,7 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
-                        helperText={meta.error}
+                        helperText={meta.touched && meta.error}
                       />
                     </>
                   )}
