@@ -46,6 +46,10 @@ const words = (state, action) => {
     case actionTypes.ADD_NEW_WORD:
       return [...state, action.payload]
 
+    case actionTypes.DELETE_ITEM_GROUP:
+      const newState = state.filter(({ groupId }) => groupId !== action.payload)
+      return newState
+
     default:
       return state
   }

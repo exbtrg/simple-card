@@ -1,3 +1,3 @@
 export default function (id, arr) {
-  return arr.filter(({ groupUrl }) => groupUrl === id)
+  return arr.filter(({ groupId }) => groupId === id)
 }
