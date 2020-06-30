@@ -7,6 +7,8 @@ export default function WordCard({
   groupId,
   word,
   translate,
+  inContextOriginal,
+  inContextTranslate,
   status,
   countCycle,
   countRepeat,
@@ -20,6 +22,10 @@ export default function WordCard({
         <CardContent>
           <Typography variant="h5" component="h2">
             {word}
+          </Typography>
+
+          <Typography className={classes.pos} color="textSecondary">
+            {inContextOriginal}
           </Typography>
 
           <Typography variant="body2" component="p">

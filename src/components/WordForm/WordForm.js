@@ -8,11 +8,9 @@ import {
   Typography,
   TextField,
   Button,
-  CircularProgress,
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
-import titleToUrl from '../../utils/titleToUrl'
-import { addNewGroup } from '../../redux/actions'
+import { addNewWord } from '../../redux/actions'
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -20,46 +18,32 @@ const required = (value) => (value ? undefined : 'Required')
 // const composeValidators = (...validators) => (value) =>
 //   validators.reduce((error, validator) => error || validator(value), undefined)
 
-const simpleMemoize = (fn) => {
-  let lastArg
-  let lastResult
-  return (arg) => {
-    if (arg !== lastArg) {
-      lastArg = arg
-      lastResult = fn(arg)
-    }
-    return lastResult
-  }
-}
-
-const createNewGroup = ({ title, description }) => ({
+const createNewWord = (
+  groupId,
+  { word, translate, imageUrl, inContextOriginal, inContextTranslate }
+) => ({
   id: uuidv4(),
-  title: title,
-  url: titleToUrl(title),
-  description: description,
-  complitedCount: 0,
-  progressCount: 0,
+  groupId: groupId,
+  word: word,
+  translate: translate,
+  imageUrl: imageUrl,
+  inContextOriginal: inContextOriginal,
+  inContextTranslate: inContextTranslate,
+  status: 'progress',
+  countCycle: 0,
+  countRepeat: 0,
+  dateToContinue: null,
 })
 
-const WordForm = ({ groups, addNewGroupHandler, setOpen }) => {
+const WordForm = ({ activeGroup, addNewWordHandler, setOpen }) => {
   const onSubmit = async (values) => {
     await sleep(300)
     setOpen(false)
-    console.log(createNewGroup(values))
+    const groupId = activeGroup.id
+    console.log(createNewWord(groupId, values))
 
-    addNewGroupHandler(createNewGroup(values))
+    addNewWordHandler(createNewWord(groupId, values))
   }
-
-  const titleAvailable = simpleMemoize(async (value) => {
-    if (!value) {
-      return 'Required'
-    }
-    await sleep(400)
-    const groupTitles = groups.map(({ title }) => title)
-    if (~groupTitles.indexOf(value)) {
-      return 'Title taken!'
-    }
-  })
 
   return (
     <Form
@@ -73,34 +57,84 @@ const WordForm = ({ groups, addNewGroupHandler, setOpen }) => {
               </Typography>
 
               <Grid item xs={12} sm={6}>
-                <Field name="title" validate={titleAvailable}>
+                <Field name="word" validate={required}>
                   {({ input, meta }) => (
                     <>
                       <TextField
                         {...input}
-                        placeholder="Title"
+                        placeholder="word"
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
-                        helperText={meta.error}
+                        helperText={meta.touched && meta.error}
                       />
-                      {meta.validating && <CircularProgress />}
                     </>
                   )}
                 </Field>
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <Field name="description" validate={required}>
+                <Field name="translate" validate={required}>
                   {({ input, meta }) => (
                     <>
                       <TextField
                         {...input}
-                        placeholder="Description"
+                        placeholder="translate"
                         fullWidth
                         autoComplete="off"
                         error={meta.error && meta.touched}
-                        helperText={meta.error}
+                        helperText={meta.touched && meta.error}
+                      />
+                    </>
+                  )}
+                </Field>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Field name="imageUrl" validate={required}>
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        placeholder="image url"
+                        fullWidth
+                        autoComplete="off"
+                        error={meta.error && meta.touched}
+                        helperText={meta.touched && meta.error}
+                      />
+                    </>
+                  )}
+                </Field>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Field name="inContextOriginal" validate={required}>
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        placeholder="Word in context"
+                        fullWidth
+                        autoComplete="off"
+                        error={meta.error && meta.touched}
+                        helperText={meta.touched && meta.error}
+                      />
+                    </>
+                  )}
+                </Field>
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Field name="inContextTranslate" validate={required}>
+                  {({ input, meta }) => (
+                    <>
+                      <TextField
+                        {...input}
+                        placeholder="Word in context translate"
+                        fullWidth
+                        autoComplete="off"
+                        error={meta.error && meta.touched}
+                        helperText={meta.touched && meta.error}
                       />
                     </>
                   )}
@@ -127,10 +161,10 @@ const WordForm = ({ groups, addNewGroupHandler, setOpen }) => {
   )
 }
 
-const mapStateToProps = ({ groups }) => ({ groups })
+const mapStateToProps = ({ activeGroup }) => ({ activeGroup })
 
 const mapDispatchToProps = {
-  addNewGroupHandler: addNewGroup,
+  addNewWordHandler: addNewWord,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WordForm)

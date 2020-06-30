@@ -4,10 +4,9 @@ import { Route, Redirect } from 'react-router-dom'
 import CardGrid from '../components/CardGrid'
 import GroupCard from '../components/GroupCard'
 import WordCard from '../components/WordCard'
-// import { dataGroup, dataWord } from '../services/dummyData'
 import filterWordByGroup from '../selectors/filterWordByGroup'
 
-const AddedCards = ({ groups, words }) => {
+const AddedCards = ({ activeGroup, groups, words }) => {
   return (
     <>
       <Route
@@ -18,12 +17,10 @@ const AddedCards = ({ groups, words }) => {
 
       <Route
         path="/added-cards/:id"
-        render={({ match }) => {
-          const id = match.params.id
-
+        render={() => {
           return (
             <CardGrid
-              cardList={filterWordByGroup(id, words)}
+              cardList={filterWordByGroup(activeGroup.id, words)}
               component={WordCard}
             />
           )
@@ -35,6 +32,10 @@ const AddedCards = ({ groups, words }) => {
   )
 }
 
-const mapStateToProps = ({ groups, words }) => ({ groups, words })
+const mapStateToProps = ({ activeGroup, groups, words }) => ({
+  activeGroup,
+  groups,
+  words,
+})
 
 export default connect(mapStateToProps)(AddedCards)
