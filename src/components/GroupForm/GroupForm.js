@@ -17,8 +17,8 @@ import { addNewGroup } from '../../redux/actions'
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 const required = (value) => (value ? undefined : 'Required')
-// const composeValidators = (...validators) => (value) =>
-//   validators.reduce((error, validator) => error || validator(value), undefined)
+const composeValidators = (...validators) => (value) =>
+  validators.reduce((error, validator) => error || validator(value), undefined)
 
 const simpleMemoize = (fn) => {
   let lastArg
@@ -61,6 +61,14 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
     }
   })
 
+  const titleValid = (value) => {
+    const regexp = /^[A-Za-z0-9.\-~\s]+$/
+
+    if (!regexp.test(value)) {
+      return 'Only numbers letters and ".-~"'
+    }
+  }
+
   return (
     <Form
       onSubmit={onSubmit}
@@ -73,7 +81,10 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
               </Typography>
 
               <Grid item xs={12} sm={6}>
-                <Field name="title" validate={titleAvailable}>
+                <Field
+                  name="title"
+                  validate={composeValidators(titleValid, titleAvailable)}
+                >
                   {({ input, meta }) => (
                     <>
                       <TextField
