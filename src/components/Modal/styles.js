@@ -1,14 +1,9 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(({ palette, shadows, spacing }) => {
-  const fullSize = {
-    width: '100%',
-    height: '100%',
-  }
-
   return createStyles({
     root: {
-      ...fullSize,
+      height: '100%',
     },
     modal: {
       display: 'flex',

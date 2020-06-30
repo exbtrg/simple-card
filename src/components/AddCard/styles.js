@@ -9,6 +9,7 @@ const useStyles = makeStyles(({ palette, shadows }) => {
   return createStyles({
     button: {
       ...fullSize,
+      minHeight: 148,
       '&:hover': {
         backgroundColor: `${palette.action.hover}`,
         boxShadow: `${shadows[5]}`,

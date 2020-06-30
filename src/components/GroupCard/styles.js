@@ -1,13 +1,9 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(({ palette, shadows }) => {
+const useStyles = makeStyles(({ palette }) => {
   return createStyles({
     root: {
       minWidth: 275,
-      '&:hover': {
-        backgroundColor: `${palette.action.hover}`,
-        boxShadow: `${shadows[5]}`,
-      },
     },
     headBox: {
       display: 'flex',
@@ -23,6 +19,11 @@ const useStyles = makeStyles(({ palette, shadows }) => {
     },
     pos: {
       marginBottom: 12,
+    },
+    deleteIcon: {
+      '&:hover': {
+        color: palette.warning.dark,
+      },
     },
   })
 })
