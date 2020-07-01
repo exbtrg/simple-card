@@ -7,14 +7,14 @@ import {
   CardContent,
   Typography,
   Grid,
-  ButtonBase,
   Box,
   Button,
 } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
-import EditIcon from '@material-ui/icons/Edit'
+import DeleteButton from '../DeleteButton'
+import EditButton from '../EditButton'
 import Modal from '../Modal'
 import GroupForm from '../GroupForm'
+import DeleteWarning from '../DeleteWarning'
 import useStyles from './styles'
 
 const GroupCard = ({
@@ -40,29 +40,8 @@ const GroupCard = ({
     deleteItemFromGroup(id)
   }
 
-  const DeliteButton = ({ handleOpen }) => (
-    <ButtonBase onClick={handleOpen}>
-      <DeleteIcon className={classes.deleteIcon} />
-    </ButtonBase>
-  )
-
-  const DeleteDialog = () => (
-    <Box p={3}>
-      <Box mb={6}>
-        <Typography variant="h4" component="p">
-          Are you sure?
-        </Typography>
-      </Box>
-      <Button variant="contained" onClick={() => deleteItemHandler(id)}>
-        Delite
-      </Button>
-    </Box>
-  )
-
-  const EditButton = ({ handleOpen }) => (
-    <ButtonBase onClick={handleOpen}>
-      <EditIcon className={classes.deleteIcon} />
-    </ButtonBase>
+  const DeleteDialog = (props) => (
+    <DeleteWarning deleteAction={() => deleteItemHandler(id)} {...props} />
   )
 
   const EditDialog = (props) => (
@@ -79,7 +58,7 @@ const GroupCard = ({
 
           <Box>
             <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
-            <Modal openTrigerNode={DeliteButton} modalNode={DeleteDialog} />
+            <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
           </Box>
         </Grid>
 

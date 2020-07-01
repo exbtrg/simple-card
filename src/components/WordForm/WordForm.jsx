@@ -13,9 +13,9 @@ import { addNewWord } from '../../redux/actions'
 import createNewWord from '../../dataModel/createNewWord'
 import required from '../../utils/validators/required'
 
-const WordForm = ({ activeGroup, addNewWordHandler, setOpen }) => {
+const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
   const onSubmit = (values) => {
-    setOpen(false)
+    handleClose()
     const groupId = activeGroup.id
     addNewWordHandler(createNewWord(groupId, values))
   }

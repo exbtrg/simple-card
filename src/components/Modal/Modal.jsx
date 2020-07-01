@@ -36,7 +36,7 @@ export default function ModalPopup({ openTrigerNode, modalNode }) {
       >
         <Fade in={open}>
           <div className={classes.paperModal}>
-            <ModalNode setOpen={setOpen} />
+            <ModalNode handleClose={handleClose} />
           </div>
         </Fade>
       </Modal>

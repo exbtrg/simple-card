@@ -22,12 +22,12 @@ const GroupForm = ({
   groups,
   addNewGroupHandler,
   editItemGroupHandler,
-  setOpen,
+  handleClose,
   isCreate,
   itemData,
 }) => {
   const onSubmit = (values) => {
-    setOpen(false)
+    handleClose()
     if (isCreate) {
       addNewGroupHandler(createNewGroup(values))
     } else {
