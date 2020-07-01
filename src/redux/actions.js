@@ -20,4 +20,15 @@ const deleteItemFromGroup = (index) => ({
   payload: index,
 })
 
-export { addNewGroup, addNewWord, deleteItemFromGroup, setActiveGroup }
+const editItemInGroup = (obj) => ({
+  type: actionTypes.EDIT_ITEM_GROUP,
+  payload: obj,
+})
+
+export {
+  addNewGroup,
+  addNewWord,
+  deleteItemFromGroup,
+  setActiveGroup,
+  editItemInGroup,
+}

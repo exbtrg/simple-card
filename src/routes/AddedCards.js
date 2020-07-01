@@ -27,7 +27,9 @@ const AddedCards = ({ activeGroup, groups, words }) => {
         }}
       />
 
-      <Redirect to="/added-cards/" />
+      <Route path="/" exact>
+        <Redirect to="/added-cards/" />
+      </Route>
     </>
   )
 }

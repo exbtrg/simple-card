@@ -12,7 +12,9 @@ import {
   Button,
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 import Modal from '../Modal'
+import GroupForm from '../GroupForm'
 import useStyles from './styles'
 
 const GroupCard = ({
@@ -27,6 +29,7 @@ const GroupCard = ({
   setActiveGroup,
 }) => {
   const classes = useStyles()
+  const itemData = { id, title, description }
 
   const pageRoutingHandler = (url) => {
     history.push(url)
@@ -37,7 +40,7 @@ const GroupCard = ({
     deleteItemFromGroup(id)
   }
 
-  const DeliteItem = ({ handleOpen }) => (
+  const DeliteButton = ({ handleOpen }) => (
     <ButtonBase onClick={handleOpen}>
       <DeleteIcon className={classes.deleteIcon} />
     </ButtonBase>
@@ -56,6 +59,16 @@ const GroupCard = ({
     </Box>
   )
 
+  const EditButton = ({ handleOpen }) => (
+    <ButtonBase onClick={handleOpen}>
+      <EditIcon className={classes.deleteIcon} />
+    </ButtonBase>
+  )
+
+  const EditDialog = (props) => (
+    <GroupForm isCreate={false} itemData={itemData} {...props} />
+  )
+
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -64,7 +77,10 @@ const GroupCard = ({
             {title}
           </Typography>
 
-          <Modal openTrigerNode={DeliteItem} modalNode={DeleteDialog} />
+          <Box>
+            <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
+            <Modal openTrigerNode={DeliteButton} modalNode={DeleteDialog} />
+          </Box>
         </Grid>
 
         <Typography className={classes.pos} color="textSecondary">

@@ -7,7 +7,6 @@ import {
   Typography,
   TextField,
   Button,
-  CircularProgress,
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
 import createNewGroup from '../../dataModel/createNewGroup'
@@ -16,12 +15,37 @@ import required from '../../utils/validators/required'
 import titleAvailable from '../../utils/validators/titleAvailable'
 import titleValid from '../../utils/validators/titleValid'
 import simpleMemoize from '../../utils/simpleMemoize'
-import { addNewGroup } from '../../redux/actions'
+import titleToUrl from '../../utils/titleToUrl'
+import { addNewGroup, editItemInGroup } from '../../redux/actions'
 
-const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
+const GroupForm = ({
+  groups,
+  addNewGroupHandler,
+  editItemGroupHandler,
+  setOpen,
+  isCreate,
+  itemData,
+}) => {
   const onSubmit = (values) => {
     setOpen(false)
-    addNewGroupHandler(createNewGroup(values))
+    if (isCreate) {
+      addNewGroupHandler(createNewGroup(values))
+    } else {
+      const newValues = {
+        id: itemData.id,
+        ...values,
+        url: titleToUrl(values.title),
+      }
+      editItemGroupHandler(newValues)
+    }
+  }
+
+  const getValidators = () => {
+    if (isCreate) {
+      return [required, titleValid, simpleMemoize(titleAvailable(groups))]
+    } else {
+      return [required, titleValid]
+    }
   }
 
   return (
@@ -38,30 +62,28 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
               <Grid item xs={12} sm={6}>
                 <Field
                   name="title"
-                  validate={composeValidators(
-                    required,
-                    titleValid,
-                    simpleMemoize(titleAvailable(groups))
-                  )}
+                  validate={composeValidators(...getValidators())}
+                  initialValue={itemData.title}
                 >
                   {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="Title"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                      {meta.validating && <CircularProgress />}
-                    </>
+                    <TextField
+                      {...input}
+                      placeholder="Title"
+                      fullWidth
+                      autoComplete="off"
+                      error={meta.error && meta.touched}
+                      helperText={meta.touched && meta.error}
+                    />
                   )}
                 </Field>
               </Grid>
 
               <Grid item xs={12} sm={6}>
-                <Field name="description" validate={required}>
+                <Field
+                  name="description"
+                  validate={required}
+                  initialValue={itemData.description}
+                >
                   {({ input, meta }) => (
                     <>
                       <TextField
@@ -97,10 +119,20 @@ const GroupForm = ({ groups, addNewGroupHandler, setOpen }) => {
   )
 }
 
+GroupForm.defaultProps = {
+  isCreate: true,
+  itemData: {
+    id: null,
+    title: '',
+    description: '',
+  },
+}
+
 const mapStateToProps = ({ groups }) => ({ groups })
 
 const mapDispatchToProps = {
   addNewGroupHandler: addNewGroup,
+  editItemGroupHandler: editItemInGroup,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)
