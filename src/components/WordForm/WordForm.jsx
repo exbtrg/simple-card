@@ -13,9 +13,9 @@ import { addNewWord } from '../../redux/actions'
 import createNewWord from '../../dataModel/createNewWord'
 import required from '../../utils/validators/required'
 
-const WordForm = ({ activeGroup, addNewWordHandler, setOpen }) => {
+const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
   const onSubmit = (values) => {
-    setOpen(false)
+    handleClose()
     const groupId = activeGroup.id
     addNewWordHandler(createNewWord(groupId, values))
   }
@@ -28,22 +28,21 @@ const WordForm = ({ activeGroup, addNewWordHandler, setOpen }) => {
           <Grid container spacing={3}>
             <form onSubmit={handleSubmit}>
               <Typography variant="h6" gutterBottom>
-                Created group words
+                Created word
               </Typography>
 
               <Grid item xs={12} sm={6}>
                 <Field name="word" validate={required}>
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="word"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
+                  {({ input: { value, ...rest }, meta }) => (
+                    <TextField
+                      {...rest}
+                      value={value}
+                      placeholder="word"
+                      fullWidth
+                      autoComplete="off"
+                      error={meta.error && meta.touched}
+                      helperText={meta.touched && meta.error}
+                    />
                   )}
                 </Field>
               </Grid>

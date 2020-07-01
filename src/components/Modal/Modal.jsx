@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { elementType } from 'prop-types'
 import { Modal, Backdrop, Fade } from '@material-ui/core'
 import useStyles from './styles'
 
 export default function ModalPopup({ openTrigerNode, modalNode }) {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
     setOpen(true)
@@ -36,7 +36,7 @@ export default function ModalPopup({ openTrigerNode, modalNode }) {
       >
         <Fade in={open}>
           <div className={classes.paperModal}>
-            <ModalNode setOpen={setOpen} />
+            <ModalNode handleClose={handleClose} />
           </div>
         </Fade>
       </Modal>

@@ -1,18 +1,20 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deleteItemFromGroup, setActiveGroup } from '../../redux/actions'
+import { setActiveGroup, deleteGroupItem } from '../../redux/actions'
 import {
   Card,
   CardContent,
   Typography,
   Grid,
-  ButtonBase,
   Box,
   Button,
 } from '@material-ui/core'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteButton from '../DeleteButton'
+import EditButton from '../EditButton'
 import Modal from '../Modal'
+import GroupForm from '../GroupForm'
+import DeleteWarning from '../DeleteWarning'
 import useStyles from './styles'
 
 const GroupCard = ({
@@ -23,37 +25,23 @@ const GroupCard = ({
   complitedCount,
   progressCount,
   history,
-  deleteItemFromGroup,
+  deleteGroupItem,
   setActiveGroup,
 }) => {
   const classes = useStyles()
+  const itemData = { id, title, description }
 
   const pageRoutingHandler = (url) => {
     history.push(url)
     setActiveGroup({ id, url, title })
   }
 
-  const deleteItemHandler = (id) => {
-    deleteItemFromGroup(id)
-  }
-
-  const DeliteItem = ({ handleOpen }) => (
-    <ButtonBase onClick={handleOpen}>
-      <DeleteIcon className={classes.deleteIcon} />
-    </ButtonBase>
+  const DeleteDialog = (props) => (
+    <DeleteWarning deleteAction={() => deleteGroupItem(id)} {...props} />
   )
 
-  const DeleteDialog = () => (
-    <Box p={3}>
-      <Box mb={6}>
-        <Typography variant="h4" component="p">
-          Are you sure?
-        </Typography>
-      </Box>
-      <Button variant="contained" onClick={() => deleteItemHandler(id)}>
-        Delite
-      </Button>
-    </Box>
+  const EditDialog = (props) => (
+    <GroupForm isCreate={false} itemData={itemData} {...props} />
   )
 
   return (
@@ -64,7 +52,10 @@ const GroupCard = ({
             {title}
           </Typography>
 
-          <Modal openTrigerNode={DeliteItem} modalNode={DeleteDialog} />
+          <Box>
+            <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
+            <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
+          </Box>
         </Grid>
 
         <Typography className={classes.pos} color="textSecondary">
@@ -83,7 +74,7 @@ const GroupCard = ({
           </Box>
 
           <Button
-            type="submit"
+            type="button"
             color="primary"
             variant="contained"
             onClick={() => pageRoutingHandler(url)}
@@ -97,7 +88,7 @@ const GroupCard = ({
 }
 
 const mapDispatchToProps = {
-  deleteItemFromGroup,
+  deleteGroupItem,
   setActiveGroup,
 }
 
