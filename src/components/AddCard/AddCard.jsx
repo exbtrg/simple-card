@@ -4,7 +4,7 @@ import { Paper, ButtonBase } from '@material-ui/core'
 import useStyles from './styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 
-export default function AddCard({ handleOpen }) {
+const AddCard = ({ handleOpen }) => {
   const classes = useStyles()
 
   return (
@@ -19,3 +19,5 @@ export default function AddCard({ handleOpen }) {
 AddCard.propTypes = {
   children: node,
 }
+
+export default AddCard

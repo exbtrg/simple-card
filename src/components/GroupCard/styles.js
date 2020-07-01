@@ -9,11 +9,6 @@ const useStyles = makeStyles(({ palette }) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
     title: {
       fontSize: 14,
     },

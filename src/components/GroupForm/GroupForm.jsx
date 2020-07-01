@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import {
   Container,
   Grid,
@@ -16,7 +15,6 @@ import titleAvailable from '../../utils/validators/titleAvailable'
 import titleValid from '../../utils/validators/titleValid'
 import simpleMemoize from '../../utils/simpleMemoize'
 import titleToUrl from '../../utils/titleToUrl'
-import { addNewGroup, editGroupItem } from '../../redux/actions'
 
 const GroupForm = ({
   groups,
@@ -128,11 +126,4 @@ GroupForm.defaultProps = {
   },
 }
 
-const mapStateToProps = ({ groups }) => ({ groups })
-
-const mapDispatchToProps = {
-  addNewGroup,
-  editGroupItem,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)
+export default GroupForm

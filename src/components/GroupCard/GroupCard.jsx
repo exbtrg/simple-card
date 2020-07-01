@@ -1,7 +1,5 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { setActiveGroup, deleteGroupItem } from '../../redux/actions'
 import {
   Card,
   CardContent,
@@ -65,11 +63,11 @@ const GroupCard = ({
         <Grid container justify="space-between">
           <Box>
             <Typography variant="body2" component="p">
-              {complitedCount}
+              Complited: {complitedCount}
             </Typography>
 
             <Typography variant="body2" component="p">
-              {progressCount}
+              Progress: {progressCount}
             </Typography>
           </Box>
 
@@ -87,9 +85,4 @@ const GroupCard = ({
   )
 }
 
-const mapDispatchToProps = {
-  deleteGroupItem,
-  setActiveGroup,
-}
-
-export default connect(null, mapDispatchToProps)(withRouter(GroupCard))
+export default withRouter(GroupCard)
