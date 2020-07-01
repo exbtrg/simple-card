@@ -11,7 +11,7 @@ import {
 import DeleteButton from '../DeleteButton'
 import EditButton from '../EditButton'
 import Modal from '../Modal'
-import GroupForm from '../GroupForm'
+import GroupForm from '../../containers/GroupForm'
 import DeleteWarning from '../DeleteWarning'
 import useStyles from './styles'
 

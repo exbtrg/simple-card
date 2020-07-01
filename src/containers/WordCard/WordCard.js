@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 // import {} from '../../redux/actions'
 import WordCard from '../../components/WordCard'
 
