@@ -1,9 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-import CardGrid from '../components/CardGrid'
-import GroupCard from '../components/GroupCard'
-import WordCard from '../components/WordCard'
+import CardGrid from '../containers/CardGrid'
+import GroupCard from '../containers/GroupCard'
+import WordCard from '../containers/WordCard'
 import filterWordByGroup from '../selectors/filterWordByGroup'
 
 const AddedCards = ({ activeGroup, groups, words }) => {

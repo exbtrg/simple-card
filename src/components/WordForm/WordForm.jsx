@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import {
   Container,
   Grid,
@@ -9,7 +8,6 @@ import {
   Button,
 } from '@material-ui/core'
 import { Form, Field } from 'react-final-form'
-import { addNewWord } from '../../redux/actions'
 import createNewWord from '../../dataModel/createNewWord'
 import required from '../../utils/validators/required'
 
@@ -135,10 +133,4 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
   )
 }
 
-const mapStateToProps = ({ activeGroup }) => ({ activeGroup })
-
-const mapDispatchToProps = {
-  addNewWordHandler: addNewWord,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(WordForm)
+export default WordForm

@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { func, array, node } from 'prop-types'
+import { func, array, object, elementType } from 'prop-types'
 import { Grid, Container, Box, Button, Typography } from '@material-ui/core'
-import { setActiveGroup } from '../../redux/actions'
 import Modal from '../Modal'
 import AddCard from '../AddCard'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-import GroupForm from '../GroupForm'
-import WordForm from '../WordForm'
+import GroupForm from '../../containers/GroupForm'
+import WordForm from '../../containers/WordForm'
 
 const CardGrid = ({
   cardList,
@@ -79,19 +77,12 @@ const CardGrid = ({
 }
 
 CardGrid.protoTypes = {
-  cardAddHandler: func,
-  setActiveGroup: func,
   cardList: array,
-  component: node,
+  component: elementType,
+  setActiveGroup: func,
+  activeGroup: object,
+  match: object,
+  history: object,
 }
 
-const mapStateToProps = ({ activeGroup }) => ({ activeGroup })
-
-const mapDispatchToProps = {
-  setActiveGroup,
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(CardGrid))
+export default withRouter(CardGrid)

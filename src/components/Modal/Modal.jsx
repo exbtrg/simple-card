@@ -3,7 +3,7 @@ import { elementType } from 'prop-types'
 import { Modal, Backdrop, Fade } from '@material-ui/core'
 import useStyles from './styles'
 
-export default function ModalPopup({ openTrigerNode, modalNode }) {
+const ModalPopup = ({ openTrigerNode, modalNode }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
@@ -48,3 +48,5 @@ ModalPopup.propTypes = {
   openTrigerNode: elementType,
   modalNode: elementType,
 }
+
+export default ModalPopup
