@@ -15,20 +15,32 @@ const addNewWord = (newItem) => ({
   payload: newItem,
 })
 
-const deleteItemFromGroup = (index) => ({
-  type: actionTypes.DELETE_ITEM_GROUP,
+const deleteGroupItem = (index) => ({
+  type: actionTypes.DELETE_GROUP_ITEM,
   payload: index,
 })
 
-const editItemInGroup = (obj) => ({
-  type: actionTypes.EDIT_ITEM_GROUP,
+const editGroupItem = (obj) => ({
+  type: actionTypes.EDIT_GROUP_ITEM,
+  payload: obj,
+})
+
+const deleteWordItem = (index) => ({
+  type: actionTypes.DELETE_WORD_ITEM,
+  payload: index,
+})
+
+const editWordItem = (obj) => ({
+  type: actionTypes.EDIT_WORD_ITEM,
   payload: obj,
 })
 
 export {
+  setActiveGroup,
   addNewGroup,
   addNewWord,
-  deleteItemFromGroup,
-  setActiveGroup,
-  editItemInGroup,
+  deleteGroupItem,
+  editGroupItem,
+  deleteWordItem,
+  editWordItem,
 }

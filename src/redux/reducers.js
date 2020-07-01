@@ -8,7 +8,8 @@ const deleteItemFromArray = (arr, id) => {
   return [...arr.slice(0, index), ...arr.slice(index + 1)]
 }
 
-const editItemInArray = (arr, id, newData) => {
+const editItemInArray = (arr, payload) => {
+  const { id, ...newData } = payload
   const index = getIndex(arr, id)
   const newItem = {
     ...arr[index],
@@ -41,12 +42,11 @@ const groups = (state, action) => {
     case actionTypes.ADD_NEW_GROUP:
       return [...state, action.payload]
 
-    case actionTypes.DELETE_ITEM_GROUP:
+    case actionTypes.DELETE_GROUP_ITEM:
       return deleteItemFromArray(state, action.payload)
 
-    case actionTypes.EDIT_ITEM_GROUP:
-      const { id, ...rest } = action.payload
-      return editItemInArray(state, id, rest)
+    case actionTypes.EDIT_GROUP_ITEM:
+      return editItemInArray(state, action.payload)
 
     default:
       return state
@@ -62,9 +62,14 @@ const words = (state, action) => {
     case actionTypes.ADD_NEW_WORD:
       return [...state, action.payload]
 
-    case actionTypes.DELETE_ITEM_GROUP:
-      const newState = state.filter(({ groupId }) => groupId !== action.payload)
-      return newState
+    case actionTypes.DELETE_GROUP_ITEM:
+      return state.filter(({ groupId }) => groupId !== action.payload)
+
+    case actionTypes.DELETE_WORD_ITEM:
+      return deleteItemFromArray(state, action.payload)
+
+    case actionTypes.EDIT_WORD_ITEM:
+      return editItemInArray(state, action.payload)
 
     default:
       return state

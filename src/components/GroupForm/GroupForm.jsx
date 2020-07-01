@@ -16,12 +16,12 @@ import titleAvailable from '../../utils/validators/titleAvailable'
 import titleValid from '../../utils/validators/titleValid'
 import simpleMemoize from '../../utils/simpleMemoize'
 import titleToUrl from '../../utils/titleToUrl'
-import { addNewGroup, editItemInGroup } from '../../redux/actions'
+import { addNewGroup, editGroupItem } from '../../redux/actions'
 
 const GroupForm = ({
   groups,
-  addNewGroupHandler,
-  editItemGroupHandler,
+  addNewGroup,
+  editGroupItem,
   handleClose,
   isCreate,
   itemData,
@@ -29,14 +29,14 @@ const GroupForm = ({
   const onSubmit = (values) => {
     handleClose()
     if (isCreate) {
-      addNewGroupHandler(createNewGroup(values))
+      addNewGroup(createNewGroup(values))
     } else {
       const newValues = {
         id: itemData.id,
         ...values,
         url: titleToUrl(values.title),
       }
-      editItemGroupHandler(newValues)
+      editGroupItem(newValues)
     }
   }
 
@@ -131,8 +131,8 @@ GroupForm.defaultProps = {
 const mapStateToProps = ({ groups }) => ({ groups })
 
 const mapDispatchToProps = {
-  addNewGroupHandler: addNewGroup,
-  editItemGroupHandler: editItemInGroup,
+  addNewGroup,
+  editGroupItem,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupForm)

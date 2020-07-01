@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { deleteItemFromGroup, setActiveGroup } from '../../redux/actions'
+import { setActiveGroup, deleteGroupItem } from '../../redux/actions'
 import {
   Card,
   CardContent,
@@ -25,7 +25,7 @@ const GroupCard = ({
   complitedCount,
   progressCount,
   history,
-  deleteItemFromGroup,
+  deleteGroupItem,
   setActiveGroup,
 }) => {
   const classes = useStyles()
@@ -36,12 +36,8 @@ const GroupCard = ({
     setActiveGroup({ id, url, title })
   }
 
-  const deleteItemHandler = (id) => {
-    deleteItemFromGroup(id)
-  }
-
   const DeleteDialog = (props) => (
-    <DeleteWarning deleteAction={() => deleteItemHandler(id)} {...props} />
+    <DeleteWarning deleteAction={() => deleteGroupItem(id)} {...props} />
   )
 
   const EditDialog = (props) => (
@@ -78,7 +74,7 @@ const GroupCard = ({
           </Box>
 
           <Button
-            type="submit"
+            type="button"
             color="primary"
             variant="contained"
             onClick={() => pageRoutingHandler(url)}
@@ -92,7 +88,7 @@ const GroupCard = ({
 }
 
 const mapDispatchToProps = {
-  deleteItemFromGroup,
+  deleteGroupItem,
   setActiveGroup,
 }
 
