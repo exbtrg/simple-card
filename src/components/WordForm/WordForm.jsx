@@ -7,11 +7,26 @@ import {
   TextField,
   Button,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { Form, Field } from 'react-final-form'
 import createNewWord from '../../dataModel/createNewWord'
 import required from '../../utils/validators/required'
 
+const useStyles = makeStyles({
+  form: {
+    minWidth: 190,
+  },
+  textField: {
+    position: 'relative',
+    '& > p': {
+      position: 'absolute',
+      bottom: -24,
+    },
+  },
+})
+
 const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
+  const classes = useStyles()
   const onSubmit = (values) => {
     handleClose()
     const groupId = activeGroup.id
@@ -21,99 +36,94 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, submitting, values }) => (
+      render={({ handleSubmit, submitting }) => (
         <Container maxWidth="sm">
-          <Grid container spacing={3}>
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <Box pt={3}>
               <Typography variant="h6" gutterBottom>
                 Created word
               </Typography>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field name="word" validate={required}>
-                  {({ input: { value, ...rest }, meta }) => (
-                    <TextField
-                      {...rest}
-                      value={value}
-                      placeholder="word"
-                      fullWidth
-                      autoComplete="off"
-                      error={meta.error && meta.touched}
-                      helperText={meta.touched && meta.error}
-                    />
-                  )}
-                </Field>
-              </Grid>
+            <Box pt={2} mb={2}>
+              <Field name="word" validate={required}>
+                {({ input, meta }) => (
+                  <TextField
+                    {...input}
+                    className={classes.textField}
+                    placeholder="word"
+                    fullWidth
+                    autoComplete="off"
+                    error={meta.error && meta.touched}
+                    helperText={meta.touched && meta.error}
+                  />
+                )}
+              </Field>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field name="translate" validate={required}>
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="translate"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
-                  )}
-                </Field>
-              </Grid>
+            <Box pt={2} mb={2}>
+              <Field name="translate" validate={required}>
+                {({ input, meta }) => (
+                  <TextField
+                    {...input}
+                    className={classes.textField}
+                    placeholder="translate"
+                    fullWidth
+                    autoComplete="off"
+                    error={meta.error && meta.touched}
+                    helperText={meta.touched && meta.error}
+                  />
+                )}
+              </Field>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field name="imageUrl" validate={required}>
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="image url"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
-                  )}
-                </Field>
-              </Grid>
+            <Box pt={2} mb={2}>
+              <Field name="imageUrl" validate={required}>
+                {({ input, meta }) => (
+                  <TextField
+                    {...input}
+                    placeholder="image url"
+                    fullWidth
+                    autoComplete="off"
+                    error={meta.error && meta.touched}
+                    helperText={meta.touched && meta.error}
+                  />
+                )}
+              </Field>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field name="inContextOriginal" validate={required}>
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="Word in context"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
-                  )}
-                </Field>
-              </Grid>
+            <Box pt={2} mb={2}>
+              <Field name="inContextOriginal" validate={required}>
+                {({ input, meta }) => (
+                  <TextField
+                    {...input}
+                    className={classes.textField}
+                    placeholder="Word in context"
+                    fullWidth
+                    autoComplete="off"
+                    error={meta.error && meta.touched}
+                    helperText={meta.touched && meta.error}
+                  />
+                )}
+              </Field>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field name="inContextTranslate" validate={required}>
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="Word in context translate"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
-                  )}
-                </Field>
-              </Grid>
+            <Field name="inContextTranslate" validate={required}>
+              {({ input, meta }) => (
+                <TextField
+                  {...input}
+                  className={classes.textField}
+                  placeholder="Word in context translate"
+                  fullWidth
+                  autoComplete="off"
+                  error={meta.error && meta.touched}
+                  helperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
 
-              <Box mt={4}>
+            <Box mt={6} pb={3}>
+              <Grid container justify="space-between">
                 <Button
                   type="submit"
                   color="primary"
@@ -122,11 +132,18 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
                 >
                   Save
                 </Button>
-              </Box>
-
-              <pre>{JSON.stringify(values, 0, 2)}</pre>
-            </form>
-          </Grid>
+                <Button
+                  type="button"
+                  color="default"
+                  variant="contained"
+                  disabled={submitting}
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Box>
+          </form>
         </Container>
       )}
     />

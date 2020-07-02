@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Box, Typography, Button } from '@material-ui/core'
+import { Container, Box, Typography, Button, Grid } from '@material-ui/core'
 
 const DeleteWarning = ({ deleteAction, handleClose }) => (
   <Container maxWidth="sm">
@@ -9,12 +9,16 @@ const DeleteWarning = ({ deleteAction, handleClose }) => (
           Are you sure?
         </Typography>
       </Box>
-      <Button variant="contained" onClick={deleteAction}>
-        Delite
-      </Button>
-      <Button variant="contained" onClick={handleClose}>
-        Cancel
-      </Button>
+
+      <Grid container justify="space-between">
+        <Button variant="contained" color="primary" onClick={deleteAction}>
+          Delite
+        </Button>
+
+        <Button variant="contained" onClick={handleClose}>
+          Cancel
+        </Button>
+      </Grid>
     </Box>
   </Container>
 )

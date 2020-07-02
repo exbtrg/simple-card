@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
 } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles'
 import { Form, Field } from 'react-final-form'
 import createNewGroup from '../../dataModel/createNewGroup'
 import composeValidators from '../../utils/validators/composeValidators'
@@ -16,6 +17,19 @@ import titleValid from '../../utils/validators/titleValid'
 import simpleMemoize from '../../utils/simpleMemoize'
 import titleToUrl from '../../utils/titleToUrl'
 
+const useStyles = makeStyles({
+  form: {
+    minWidth: 190,
+  },
+  textField: {
+    position: 'relative',
+    '& > p': {
+      position: 'absolute',
+      bottom: -24,
+    },
+  },
+})
+
 const GroupForm = ({
   groups,
   addNewGroup,
@@ -24,6 +38,7 @@ const GroupForm = ({
   isCreate,
   itemData,
 }) => {
+  const classes = useStyles()
   const onSubmit = (values) => {
     handleClose()
     if (isCreate) {
@@ -49,55 +64,55 @@ const GroupForm = ({
   return (
     <Form
       onSubmit={onSubmit}
-      render={({ handleSubmit, submitting, values }) => (
+      render={({ handleSubmit, submitting }) => (
         <Container maxWidth="sm">
-          <Grid container spacing={3}>
-            <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className={classes.form}>
+            <Box pt={3}>
               <Typography variant="h6" gutterBottom>
                 Created group words
               </Typography>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="title"
-                  validate={composeValidators(...getValidators())}
-                  initialValue={itemData.title}
-                >
-                  {({ input, meta }) => (
-                    <TextField
-                      {...input}
-                      placeholder="Title"
-                      fullWidth
-                      autoComplete="off"
-                      error={meta.error && meta.touched}
-                      helperText={meta.touched && meta.error}
-                    />
-                  )}
-                </Field>
-              </Grid>
+            <Box pt={3} mb={3}>
+              <Field
+                name="title"
+                validate={composeValidators(...getValidators())}
+                initialValue={itemData.title}
+              >
+                {({ input, meta }) => (
+                  <TextField
+                    {...input}
+                    className={classes.textField}
+                    placeholder="Title"
+                    fullWidth
+                    autoComplete="off"
+                    error={meta.error && meta.touched}
+                    helperText={meta.touched && meta.error}
+                  />
+                )}
+              </Field>
+            </Box>
 
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="description"
-                  validate={required}
-                  initialValue={itemData.description}
-                >
-                  {({ input, meta }) => (
-                    <>
-                      <TextField
-                        {...input}
-                        placeholder="Description"
-                        fullWidth
-                        autoComplete="off"
-                        error={meta.error && meta.touched}
-                        helperText={meta.touched && meta.error}
-                      />
-                    </>
-                  )}
-                </Field>
-              </Grid>
+            <Field
+              name="description"
+              validate={required}
+              initialValue={itemData.description}
+            >
+              {({ input, meta }) => (
+                <TextField
+                  {...input}
+                  className={classes.textField}
+                  placeholder="Description"
+                  fullWidth
+                  autoComplete="off"
+                  error={meta.error && meta.touched}
+                  helperText={meta.touched && meta.error}
+                />
+              )}
+            </Field>
 
-              <Box mt={4}>
+            <Box mt={6} pb={3}>
+              <Grid container justify="space-between">
                 <Button
                   type="submit"
                   color="primary"
@@ -106,11 +121,18 @@ const GroupForm = ({
                 >
                   Save
                 </Button>
-              </Box>
-
-              <pre>{JSON.stringify(values, 0, 2)}</pre>
-            </form>
-          </Grid>
+                <Button
+                  type="button"
+                  color="default"
+                  variant="contained"
+                  disabled={submitting}
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Box>
+          </form>
         </Container>
       )}
     />

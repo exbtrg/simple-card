@@ -35,7 +35,7 @@ const ModalPopup = ({ openTrigerNode, modalNode }) => {
         }}
       >
         <Fade in={open}>
-          <div className={classes.paperModal}>
+          <div p={3} className={classes.paperModal}>
             <ModalNode handleClose={handleClose} />
           </div>
         </Fade>
