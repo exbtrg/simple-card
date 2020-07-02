@@ -1,5 +1,5 @@
 import React from 'react'
-import { node } from 'prop-types'
+import { func } from 'prop-types'
 import { Paper, ButtonBase } from '@material-ui/core'
 import useStyles from './styles'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
@@ -17,7 +17,7 @@ const AddCard = ({ handleOpen }) => {
 }
 
 AddCard.propTypes = {
-  children: node,
+  handleOpen: func,
 }
 
 export default AddCard

@@ -50,9 +50,13 @@ const GroupCard = ({
             {title}
           </Typography>
 
-          <Box>
-            <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
-            <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
+          <Box className={classes.buttons}>
+            <Box mr={2}>
+              <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
+            </Box>
+            <Box>
+              <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
+            </Box>
           </Box>
         </Grid>
 

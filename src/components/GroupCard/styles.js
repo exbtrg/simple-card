@@ -9,6 +9,9 @@ const useStyles = makeStyles(({ palette }) => {
       display: 'flex',
       justifyContent: 'space-between',
     },
+    buttons: {
+      display: 'flex',
+    },
     title: {
       fontSize: 14,
     },
