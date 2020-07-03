@@ -32,38 +32,43 @@ const useStyles = makeStyles({
 
 const GroupForm = ({
   groups,
+  type,
+  itemData,
   addNewGroup,
   editGroupItem,
   handleClose,
-  isCreate,
-  itemData,
 }) => {
   const classes = useStyles()
-  const onSubmit = (values) => {
-    handleClose()
-    if (isCreate) {
-      addNewGroup(createNewGroup(values))
-    } else {
-      const newValues = {
-        id: itemData.id,
-        ...values,
-        url: titleToUrl(values.title),
-      }
-      editGroupItem(newValues)
-    }
-  }
 
-  const getValidators = () => {
-    if (isCreate) {
-      return [required, titleValid, simpleMemoize(titleAvailable(groups))]
-    } else {
-      return [required, titleValid]
-    }
+  const mapping = {
+    create: {
+      submit(values) {
+        handleClose()
+        addNewGroup(createNewGroup(values))
+      },
+      validators: composeValidators(
+        required,
+        titleValid,
+        simpleMemoize(titleAvailable(groups))
+      ),
+    },
+    edit: {
+      submit(values) {
+        handleClose()
+        const newValues = {
+          id: itemData.id,
+          ...values,
+          url: titleToUrl(values.title),
+        }
+        editGroupItem(newValues)
+      },
+      validators: composeValidators(required, titleValid),
+    },
   }
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={mapping[type].submit}
       render={({ handleSubmit, submitting }) => (
         <Container maxWidth="sm">
           <form onSubmit={handleSubmit} className={classes.form}>
@@ -76,7 +81,7 @@ const GroupForm = ({
             <Box pt={3} mb={3}>
               <Field
                 name="title"
-                validate={composeValidators(...getValidators())}
+                validate={mapping[type].validators}
                 initialValue={itemData.title}
               >
                 {({ input, meta }) => (
@@ -140,7 +145,7 @@ const GroupForm = ({
 }
 
 GroupForm.defaultProps = {
-  isCreate: true,
+  type: 'create',
   itemData: {
     id: null,
     title: '',

@@ -17,13 +17,13 @@ const CardGrid = ({
   history,
 }) => {
   const CardComponent = component
-  const isWordsPage = match.params.id !== undefined
+  const isGroupPage = match.params.id === undefined
 
   useEffect(() => {
-    if (!isWordsPage) {
+    if (isGroupPage) {
       setActiveGroup(null)
     }
-  }, [isWordsPage, setActiveGroup])
+  }, [isGroupPage, setActiveGroup])
 
   const backToGroupHandler = () => {
     history.goBack()
@@ -34,7 +34,7 @@ const CardGrid = ({
       <Box pt={{ xs: 4, sm: 6 }}>
         <Box mb={{ xs: 2, sm: 4 }}>
           <Grid container alignItems="center" justify="space-between">
-            {isWordsPage ? (
+            {!isGroupPage ? (
               <>
                 <Typography variant="h4" component="h2">
                   {activeGroup.title}
@@ -61,7 +61,7 @@ const CardGrid = ({
           <Grid item xs={12} sm={6} md={4} lg={3}>
             <Modal
               openTrigerNode={AddCard}
-              modalNode={isWordsPage ? WordForm : GroupForm}
+              modalNode={isGroupPage ? GroupForm : WordForm}
             />
           </Grid>
 

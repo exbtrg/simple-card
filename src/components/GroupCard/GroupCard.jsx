@@ -39,7 +39,7 @@ const GroupCard = ({
   )
 
   const EditDialog = (props) => (
-    <GroupForm isCreate={false} itemData={itemData} {...props} />
+    <GroupForm type="edit" itemData={itemData} {...props} />
   )
 
   return (
