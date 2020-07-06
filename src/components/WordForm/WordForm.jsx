@@ -25,28 +25,71 @@ const useStyles = makeStyles({
   },
 })
 
-const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
+const WordForm = ({
+  activeGroup,
+  type,
+  addNewWord,
+  editWordItem,
+  itemData,
+  handleClose,
+}) => {
   const classes = useStyles()
-  const onSubmit = (values) => {
-    handleClose()
-    const groupId = activeGroup.id
-    addNewWordHandler(createNewWord(groupId, values))
+
+  const {
+    id,
+    groupId,
+    status,
+    word,
+    translate,
+    imageUrl,
+    inContextOriginal,
+    inContextTranslate,
+    countCycle,
+    countRepeat,
+    dateToContinue,
+  } = itemData
+
+  const mapping = {
+    create: {
+      title: 'Created word',
+      submit(values) {
+        handleClose()
+        addNewWord(createNewWord(activeGroup.id, values))
+      },
+    },
+    edit: {
+      title: 'Edit word',
+      submit(values) {
+        handleClose()
+
+        const newValues = {
+          id: id,
+          groupId: groupId,
+          ...values,
+          status: status,
+          countCycle: countCycle,
+          countRepeat: countRepeat,
+          dateToContinue: dateToContinue,
+        }
+        editWordItem(newValues)
+      },
+    },
   }
 
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={mapping[type].submit}
       render={({ handleSubmit, submitting }) => (
         <Container maxWidth="sm">
           <form onSubmit={handleSubmit} className={classes.form}>
             <Box pt={3}>
               <Typography variant="h6" gutterBottom>
-                Created word
+                {mapping[type].title}
               </Typography>
             </Box>
 
             <Box pt={2} mb={2}>
-              <Field name="word" validate={required}>
+              <Field name="word" validate={required} initialValue={word}>
                 {({ input, meta }) => (
                   <TextField
                     {...input}
@@ -62,7 +105,11 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
             </Box>
 
             <Box pt={2} mb={2}>
-              <Field name="translate" validate={required}>
+              <Field
+                name="translate"
+                validate={required}
+                initialValue={translate}
+              >
                 {({ input, meta }) => (
                   <TextField
                     {...input}
@@ -78,7 +125,11 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
             </Box>
 
             <Box pt={2} mb={2}>
-              <Field name="imageUrl" validate={required}>
+              <Field
+                name="imageUrl"
+                validate={required}
+                initialValue={imageUrl}
+              >
                 {({ input, meta }) => (
                   <TextField
                     {...input}
@@ -93,7 +144,11 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
             </Box>
 
             <Box pt={2} mb={2}>
-              <Field name="inContextOriginal" validate={required}>
+              <Field
+                name="inContextOriginal"
+                validate={required}
+                initialValue={inContextOriginal}
+              >
                 {({ input, meta }) => (
                   <TextField
                     {...input}
@@ -108,7 +163,11 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
               </Field>
             </Box>
 
-            <Field name="inContextTranslate" validate={required}>
+            <Field
+              name="inContextTranslate"
+              validate={required}
+              initialValue={inContextTranslate}
+            >
               {({ input, meta }) => (
                 <TextField
                   {...input}
@@ -148,6 +207,18 @@ const WordForm = ({ activeGroup, addNewWordHandler, handleClose }) => {
       )}
     />
   )
+}
+
+WordForm.defaultProps = {
+  type: 'create',
+  itemData: {
+    id: null,
+    groupId: null,
+    status: 'progress',
+    countCycle: 0,
+    countRepeat: 0,
+    dateToContinue: null,
+  },
 }
 
 export default WordForm
