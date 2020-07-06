@@ -42,6 +42,7 @@ const GroupForm = ({
 
   const mapping = {
     create: {
+      title: 'Created group words',
       submit(values) {
         handleClose()
         addNewGroup(createNewGroup(values))
@@ -53,6 +54,7 @@ const GroupForm = ({
       ),
     },
     edit: {
+      title: 'Edit group words',
       submit(values) {
         handleClose()
         const newValues = {
@@ -74,7 +76,7 @@ const GroupForm = ({
           <form onSubmit={handleSubmit} className={classes.form}>
             <Box pt={3}>
               <Typography variant="h6" gutterBottom>
-                Created group words
+                {mapping[type].title}
               </Typography>
             </Box>
 
