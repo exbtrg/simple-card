@@ -90,6 +90,7 @@ const GroupForm = ({
                   <TextField
                     {...input}
                     className={classes.textField}
+                    label="Title"
                     placeholder="Title"
                     fullWidth
                     autoComplete="off"
@@ -109,6 +110,7 @@ const GroupForm = ({
                 <TextField
                   {...input}
                   className={classes.textField}
+                  label="Description"
                   placeholder="Description"
                   fullWidth
                   autoComplete="off"

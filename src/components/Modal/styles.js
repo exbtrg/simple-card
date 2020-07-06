@@ -9,12 +9,13 @@ const useStyles = makeStyles(({ palette, shadows, spacing }) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      overflow: 'auto',
     },
     paperModal: {
       backgroundColor: palette.background.paper,
       border: '2px solid #000',
       boxShadow: shadows[5],
-      padding: spacing(2, 4, 3),
+      padding: spacing(3),
     },
   })
 })

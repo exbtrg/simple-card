@@ -94,7 +94,8 @@ const WordForm = ({
                   <TextField
                     {...input}
                     className={classes.textField}
-                    placeholder="word"
+                    label="Word"
+                    placeholder="Word"
                     fullWidth
                     autoComplete="off"
                     error={meta.error && meta.touched}
@@ -114,7 +115,8 @@ const WordForm = ({
                   <TextField
                     {...input}
                     className={classes.textField}
-                    placeholder="translate"
+                    placeholder="Translate"
+                    label="Translate"
                     fullWidth
                     autoComplete="off"
                     error={meta.error && meta.touched}
@@ -133,7 +135,8 @@ const WordForm = ({
                 {({ input, meta }) => (
                   <TextField
                     {...input}
-                    placeholder="image url"
+                    placeholder="Image url"
+                    label="Image url"
                     fullWidth
                     autoComplete="off"
                     error={meta.error && meta.touched}
@@ -154,6 +157,7 @@ const WordForm = ({
                     {...input}
                     className={classes.textField}
                     placeholder="Word in context"
+                    label="Word in context"
                     fullWidth
                     autoComplete="off"
                     error={meta.error && meta.touched}
@@ -173,6 +177,7 @@ const WordForm = ({
                   {...input}
                   className={classes.textField}
                   placeholder="Word in context translate"
+                  label="Word in context translate"
                   fullWidth
                   autoComplete="off"
                   error={meta.error && meta.touched}
