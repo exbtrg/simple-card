@@ -8,6 +8,7 @@ import store from '../redux/store'
 import Header from '../components/Header'
 
 import AddedCards from '../routes/AddedCards'
+import LearningWords from '../routes/LearningWords'
 
 const theme = createMuiTheme({
   status: {
@@ -28,6 +29,7 @@ const App = () => (
 
         <Box pt={{ xs: 4, sm: 6 }}>
           <AddedCards />
+          <LearningWords />
         </Box>
       </ThemeProvider>
     </Router>
