@@ -1,23 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Route, Redirect } from 'react-router-dom'
-import { added } from './routeNames'
-import CardGrid from '../containers/CardGrid'
-import GroupCard from '../containers/GroupCard'
-import WordCard from '../containers/WordCard'
+import { Route } from 'react-router-dom'
+import { learning } from './routeNames'
 import filterWordByGroup from '../selectors/filterWordByGroup'
+import CardGrid from '../containers/CardGrid'
+import WordCard from '../containers/WordCard'
+import GroupCard from '../containers/GroupCard'
 
 const AddedCards = ({ activeGroup, groups, words }) => {
   return (
     <>
       <Route
-        path={added}
+        path={learning}
         render={() => <CardGrid cardList={groups} component={GroupCard} />}
         exact
       />
 
       <Route
-        path={`${added}:id`}
+        path={`${learning}:id`}
         render={() => {
           return (
             <CardGrid
@@ -27,10 +27,6 @@ const AddedCards = ({ activeGroup, groups, words }) => {
           )
         }}
       />
-
-      <Route path="/" exact>
-        <Redirect to="/added-cards/" />
-      </Route>
     </>
   )
 }

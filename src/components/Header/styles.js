@@ -8,8 +8,11 @@ const useStyles = makeStyles(({ spacing, shadows, palette }) => {
   }
 
   const activeStyle = {
-    boxShadow: shadows[0],
-    backgroundColor: palette.success.dark,
+    pointerEvents: 'none',
+    '& button': {
+      boxShadow: shadows[0],
+      backgroundColor: palette.success.dark,
+    },
   }
 
   return {
@@ -31,6 +34,12 @@ const useStyles = makeStyles(({ spacing, shadows, palette }) => {
       '&:hover': {
         ...activeStyle,
       },
+    },
+    btn: {
+      boxShadow: 'none',
+    },
+    btnOne: {
+      marginRight: spacing(2),
     },
   }
 })

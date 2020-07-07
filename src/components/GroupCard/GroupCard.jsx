@@ -25,6 +25,7 @@ const GroupCard = ({
   history,
   deleteGroupItem,
   setActiveGroup,
+  isEditPage,
 }) => {
   const classes = useStyles()
   const itemData = { id, title, description }
@@ -50,14 +51,16 @@ const GroupCard = ({
             {title}
           </Typography>
 
-          <Box className={classes.buttons}>
-            <Box mr={2}>
-              <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
+          {isEditPage && (
+            <Box className={classes.buttons}>
+              <Box mr={2}>
+                <Modal openTrigerNode={EditButton} modalNode={EditDialog} />
+              </Box>
+              <Box>
+                <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
+              </Box>
             </Box>
-            <Box>
-              <Modal openTrigerNode={DeleteButton} modalNode={DeleteDialog} />
-            </Box>
-          </Box>
+          )}
         </Grid>
 
         <Typography className={classes.pos} color="textSecondary">
