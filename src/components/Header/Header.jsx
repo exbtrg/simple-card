@@ -15,6 +15,8 @@ import {
   Grid,
 } from '@material-ui/core'
 import { added, learning } from '../../routes/routeNames'
+import CastForEducationIcon from '@material-ui/icons/CastForEducation'
+import NoteAddIcon from '@material-ui/icons/NoteAdd'
 
 import useStyles from './styles'
 
@@ -43,13 +45,10 @@ const Header = (props) => {
       <CssBaseline />
       <HideOnScroll {...props}>
         <AppBar>
-          <Toolbar disableGutters>
+          <Toolbar disableGutters className={classes.root}>
             <Container maxWidth="lg" className={classes.wrapper}>
               <Grid container wrap="nowrap" justify="space-between">
                 <Box className={classes.box}>
-                  <Typography variant="h6" className={classes.spacing}>
-                    Simple Cards
-                  </Typography>
                   <Box>
                     <Link
                       to={added}
@@ -61,7 +60,8 @@ const Header = (props) => {
                         variant="contained"
                         className={clsx(classes.btn, classes.btnOne)}
                       >
-                        Added words
+                        <NoteAddIcon className={classes.icon} />
+                        <span className={classes.btnText}>Added words</span>
                       </Button>
                     </Link>
                     <Link
@@ -71,7 +71,8 @@ const Header = (props) => {
                       })}
                     >
                       <Button variant="contained" className={classes.btn}>
-                        Learning words
+                        <CastForEducationIcon className={classes.icon} />
+                        <span className={classes.btnText}>Learning words</span>
                       </Button>
                     </Link>
                   </Box>
