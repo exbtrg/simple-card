@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from 'uuid'
 import titleToUrl from '../utils/titleToUrl'
 
-const createNewGroup = ({ title, description }) => ({
+const createNewGroup = ({ title }) => ({
   id: uuidv4(),
   title: title,
   url: titleToUrl(title),
-  description: description,
   complitedCount: 0,
   progressCount: 0,
 })

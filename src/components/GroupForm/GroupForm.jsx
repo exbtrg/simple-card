@@ -101,25 +101,6 @@ const GroupForm = ({
               </Field>
             </Box>
 
-            <Field
-              name="description"
-              validate={required}
-              initialValue={itemData.description}
-            >
-              {({ input, meta }) => (
-                <TextField
-                  {...input}
-                  className={classes.textField}
-                  label="Description"
-                  placeholder="Description"
-                  fullWidth
-                  autoComplete="off"
-                  error={meta.error && meta.touched}
-                  helperText={meta.touched && meta.error}
-                />
-              )}
-            </Field>
-
             <Box mt={6} pb={3}>
               <Grid container justify="space-between">
                 <Button

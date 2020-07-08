@@ -1,13 +1,9 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(({ palette, shadows }) => {
+const useStyles = makeStyles(({ palette, shadows, spacing }) => {
   return createStyles({
-    root: {
-      width: '100%',
-    },
-    headBox: {
-      display: 'flex',
-      justifyContent: 'space-between',
+    mb: {
+      marginBottom: spacing(2),
     },
     buttons: {
       display: 'flex',
@@ -20,9 +16,6 @@ const useStyles = makeStyles(({ palette, shadows }) => {
         backgroundColor: `${palette.action.hover}`,
         boxShadow: `${shadows[5]}`,
       },
-    },
-    textBox: {
-      textAlign: 'left',
     },
     count: {
       '& span': {
