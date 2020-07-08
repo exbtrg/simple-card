@@ -18,7 +18,14 @@ const AddedCards = ({ activeGroup, groups, words }) => {
 
       <Route
         path={`${added}:id`}
-        render={() => {
+        render={({ match }) => {
+          //toDo need to process non-existing pages
+          //this is temporary solution
+          const { id } = match
+          const existingId = groups.map(({ id }) => id)
+          if (!existingId.includes(id)) {
+            return null
+          }
           return (
             <CardGrid
               cardList={filterWordByGroup(activeGroup.id, words)}
@@ -31,6 +38,8 @@ const AddedCards = ({ activeGroup, groups, words }) => {
       <Route path="/" exact>
         <Redirect to="/added-cards/" />
       </Route>
+
+      <Redirect to="/added-cards/" />
     </>
   )
 }

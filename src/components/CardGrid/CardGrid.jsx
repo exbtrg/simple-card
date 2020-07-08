@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { func, array, object, elementType } from 'prop-types'
 import { Grid, Container, Box, Button, Typography } from '@material-ui/core'
 import { added } from '../../routes/routeNames'
@@ -76,6 +76,30 @@ const CardGrid = ({
             </Grid>
           ))}
         </Grid>
+
+        {cardList.length === 0 && !isEditPage && (
+          <Box pt={5}>
+            <Typography variant="h4" component="h2">
+              So far it's empty 
+              {isGroupPage ? (
+                <Link to={added} style={{ textDecoration: 'none' }}>
+                  <Button color="primary" variant="contained">
+                    Add group
+                  </Button>
+                </Link>
+              ) : (
+                <Link
+                  to={`${added}${match.params.id}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Button color="primary" variant="contained">
+                    Add word
+                  </Button>
+                </Link>
+              )}
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Container>
   )
