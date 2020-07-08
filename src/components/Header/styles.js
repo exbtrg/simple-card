@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(({ spacing, shadows, palette }) => {
+const useStyles = makeStyles(({ breakpoints, spacing, shadows, palette }) => {
   const flexCenter = {
     display: 'flex',
     justifyContent: 'space-between',
@@ -16,6 +16,9 @@ const useStyles = makeStyles(({ spacing, shadows, palette }) => {
   }
 
   return {
+    root: {
+      minHeight: 64,
+    },
     wrapper: {
       ...flexCenter,
       '& a': {
@@ -40,6 +43,17 @@ const useStyles = makeStyles(({ spacing, shadows, palette }) => {
     },
     btnOne: {
       marginRight: spacing(2),
+    },
+    btnText: {
+      display: 'none',
+      [breakpoints.up('sm')]: {
+        display: 'inline',
+      },
+    },
+    icon: {
+      [breakpoints.up('sm')]: {
+        marginRight: spacing(2),
+      },
     },
   }
 })

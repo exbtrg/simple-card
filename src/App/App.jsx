@@ -27,7 +27,7 @@ const App = () => (
 
         <Header />
 
-        <Box pt={{ xs: 4, sm: 6 }}>
+        <Box pt={{ xs: 8, sm: 6 }}>
           <AddedCards />
           <LearningWords />
         </Box>
