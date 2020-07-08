@@ -31,7 +31,7 @@ const CommonCard = ({
     word: {
       firstCountLabel: 'Repeated:',
       secondCountLabel: 'Cycles completed:',
-      buttonLabel: 'Go to learn',
+      buttonLabel: isEditPage ? 'Preview' : 'Go to learn',
     },
     group: {
       firstCountLabel: 'Complited:',

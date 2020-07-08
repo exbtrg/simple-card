@@ -1,14 +1,17 @@
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(({ palette, shadows, spacing }) => {
+const useStyles = makeStyles(({ breakpoints, palette, shadows, spacing }) => {
   return createStyles({
     root: {
       height: '100%',
     },
     modal: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      [breakpoints.down('sm')]: {
+        padding: spacing(2),
+      },
+      [breakpoints.up('sm')]: {
+        padding: spacing(8),
+      },
       overflow: 'auto',
     },
     paperModal: {
@@ -16,6 +19,8 @@ const useStyles = makeStyles(({ palette, shadows, spacing }) => {
       border: '2px solid #000',
       boxShadow: shadows[5],
       padding: spacing(3),
+      maxWidth: spacing(70),
+      margin: '0 auto',
     },
   })
 })
